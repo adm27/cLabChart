@@ -19,4 +19,12 @@ export class ServerApiService{
   getCountries(): Observable<Object> {
     return this._http.get(API_URL + '/api/get_countries');
   }
+
+  getVariablesByXLevel(xLevel: string): Observable<Object> {
+    return this._http.get(API_URL + '/api/get_var/'+xLevel);
+  }
+
+  getXLevels(): Observable<Object> {
+    return this._http.get(API_URL + '/api/get_x_levels');
+  }
 }

@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import {HttpClientModule} from "@angular/common/http";
 import { VariableChartComponent } from './variable-chart/variable-chart.component';
+import {DemoMaterialModule} from "./material.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
@@ -14,8 +17,11 @@ import { VariableChartComponent } from './variable-chart/variable-chart.componen
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    DemoMaterialModule,
+    MatFormFieldModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),

@@ -2,6 +2,7 @@ import { AfterContentInit, Component, OnInit, ViewEncapsulation } from '@angular
 import { ECharts, EChartsOption } from 'echarts';
 import {ServerApiService} from "../serverApiService";
 import {VariableModel} from "../models/variable.model";
+import {XLevelModel} from "../models/xLevel.model";
 
 interface ChartVariablesSource{
   year: number,
@@ -17,13 +18,22 @@ export class VariableChartComponent implements OnInit {
   public echartsInstance!: ECharts;
   public chartOption!: EChartsOption;
   public countries: Array<string>=[];
+  public xLevels: Array<XLevelModel>= []
 
   constructor(private serverApiService: ServerApiService) {
   }
 
   ngOnInit(): void {
+    this.findCountries();
+    this.findVariables();
     this.serverApiService.getVariables().subscribe((result: Object)=>{
       this.setVars(result as Array<VariableModel>);
+    }, (error)=>console.error(error));
+  }
+
+  private findVariables(){
+    this.serverApiService.getXLevels().subscribe((result: Object)=>{
+      this.xLevels = result as Array<XLevelModel>;
     }, (error)=>console.error(error));
   }
 
@@ -31,6 +41,10 @@ export class VariableChartComponent implements OnInit {
     this.serverApiService.getCountries().subscribe((result: Object)=>{
       this.countries = result as Array<string>;
     }, (error)=>console.error(error));
+  }
+
+  setChart(variable: string){
+    this.serverApiService.getVariablesByXLevel(variable).subscribe(result=>console.log(result));
   }
 
 
@@ -42,10 +56,6 @@ export class VariableChartComponent implements OnInit {
       }
       mapCountries.get(variable.year)?.set(variable.country, variable.ngs_price);
     })
-
-    console.log(JSON.stringify(mapCountries))
-    let source: Array<ChartVariablesSource>
-
     this.chartOption = this.getChartOptions();
   }
 
