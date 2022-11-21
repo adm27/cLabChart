@@ -1,4 +1,4 @@
-export class XLevelModel{
-  constructor(public id: number, public name: string, public color: string) {
-  }
+export interface XLevelModel{
+  name: string,
+  color: string
 }

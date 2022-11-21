@@ -1,9 +1,6 @@
-import pymongo as pymongo
+import database
 
-password = 'c4p1t4n4m3r1c4'
-
-client = pymongo.MongoClient("mongodb+srv://adm27:"+password+"@cluster0.dt9r9fo.mongodb.net/?retryWrites=true&w=majority")
-db = client["circularLabDB"]
+db = database.get_database()
 collection_x_levels = db["x_level"]
 collection_variables = db["ngs_prices"]
 collection_countries = db["countries"]
@@ -39,28 +36,6 @@ with open('data_vars.txt') as f:
         variables.append(variable)
 print(variables)
 collection_variables.insert_many(variables)
-
-# collection_variables.aggregate([
-#     { '$lookup':
-#         {
-#            'from': "x_level",
-#            'localField': "x_level_id",
-#            'foreignField': "_id",
-#            'as': "x_level"
-#         },
-#     },
-#     {   '$unwind': "$x_level"},
-#     {'$lookup':
-#         {
-#             'from': "countries",
-#             'localField': "country_id",
-#             'foreignField': "_id",
-#             'as': "country"
-#         }
-#     },
-#     {   '$unwind': "$country"},
-# ])
-# print()
 
 
 

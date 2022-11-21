@@ -9,6 +9,6 @@ def get_database():
         db_config = json.load(file)
         client = pymongo.MongoClient("mongodb+srv://"+db_config['user']+":"+db_config['password']+"@cluster0.dt9r9fo.mongodb.net/?retryWrites=true&w=majority")
         db = client["circularLabDB"]
-        return db;
+        return db
     except Exception as e:
         print(e)

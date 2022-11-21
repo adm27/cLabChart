@@ -1,11 +1,10 @@
 
-<div class="chart">
-  <mat-form-field appearance="fill">
-    <mat-label>Select</mat-label>
+<div class="div-container">
+  <div class="form"><mat-form-field appearance="fill">
+    <mat-label>Select X Level</mat-label>
     <mat-select (selectionChange)="setChart($event.value)">
       <mat-option *ngFor="let variable of xLevels" [value]="variable.name">{{variable.name}}</mat-option>
     </mat-select>
-  </mat-form-field>
-  <div echarts [theme]='"dark"' [options]="chartOption" (chartInit)="onChartInit($event)"
-       style="height: 100%;"></div>
+  </mat-form-field></div>
+  <div class="chart" echarts [options]="chartOption" (chartInit)="onChartInit($event)"></div>
 </div>
